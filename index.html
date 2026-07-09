@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HXAS — Proyectos de software, IoT e IA · Ecuador</title>
+<meta name="description" content="Portafolio de HXAS: Mediall (comparador de precios de medicinas), HuKazeos OS (gestión para clínicas dentales), Robuz (robot autónomo con visión artificial) y más. Automatización, IoT, IA y visión artificial desde Ecuador.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1220; --bg2:#0f1729; --card:#121c31; --line:rgba(255,255,255,.08);
+    --ink:#eef2f9; --muted:#93a0b8; --accent:#14b8a6;
+    --mediall1:#0e9d74; --mediall2:#14b8a6;
+    --huka1:#2563eb; --huka2:#06b6d4;
+    --robuz1:#ea580c; --robuz2:#f59e0b;
+    --edu1:#7c3aed; --edu2:#db2777;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+  /* ---------- HERO ---------- */
+  header{position:relative;overflow:hidden;padding:84px 0 64px;
+    background:
+      radial-gradient(600px 340px at 85% -10%, rgba(20,184,166,.16), transparent 60%),
+      radial-gradient(520px 300px at 0% 110%, rgba(37,99,235,.14), transparent 60%),
+      var(--bg2);}
+  .logo{display:flex;align-items:center;gap:12px;margin-bottom:34px}
+  .logo .mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--mediall1),var(--huka1));font-weight:800;font-size:15px;letter-spacing:.5px}
+  .logo span{font-weight:800;font-size:19px;letter-spacing:.4px}
+  h1{font-size:clamp(30px,5.4vw,52px);font-weight:800;line-height:1.13;max-width:760px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--mediall2),var(--huka2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin-top:18px;max-width:640px;color:var(--muted);font-size:17px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+  .chip{border:1px solid var(--line);background:rgba(255,255,255,.04);padding:7px 14px;
+    border-radius:999px;font-size:13px;font-weight:600;color:#c8d2e4}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;
+    font-weight:700;font-size:14.5px;transition:transform .15s ease, box-shadow .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(135deg,var(--mediall1),var(--mediall2));color:#fff;
+    box-shadow:0 8px 24px rgba(20,184,166,.28)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.04)}
+
+  /* ---------- SECCIONES ---------- */
+  section{padding:70px 0}
+  .kicker{font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
+  h2{font-size:clamp(24px,3.6vw,34px);font-weight:800;margin-top:8px}
+  .sub{color:var(--muted);margin-top:10px;max-width:640px}
+
+  /* ---------- PROYECTOS ---------- */
+  .project{margin-top:34px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
+  .banner{padding:34px 34px 28px;position:relative;overflow:hidden}
+  .banner::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(420px 200px at 90% -30%, rgba(255,255,255,.18), transparent 60%)}
+  .banner .tag{display:inline-block;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);
+    padding:5px 13px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#fff}
+  .banner h3{color:#fff;font-size:clamp(24px,3.4vw,32px);font-weight:800;margin-top:12px;position:relative;z-index:1}
+  .banner p{color:rgba(255,255,255,.92);margin-top:6px;max-width:600px;font-weight:600;position:relative;z-index:1}
+  .b-mediall{background:linear-gradient(120deg,var(--mediall1),var(--mediall2))}
+  .b-huka{background:linear-gradient(120deg,var(--huka1),var(--huka2))}
+  .b-robuz{background:linear-gradient(120deg,var(--robuz1),var(--robuz2))}
+  .b-edu{background:linear-gradient(120deg,var(--edu1),var(--edu2))}
+  .body{padding:28px 34px 30px}
+  .body p.desc{color:#c4cede;font-size:15.5px}
+  .feats{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .feat{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#c4cede}
+  .feat b{color:var(--ink)}
+  .dot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;margin-top:7px}
+  .d-mediall{background:var(--mediall2)} .d-huka{background:var(--huka2)}
+  .d-robuz{background:var(--robuz2)} .d-edu{background:var(--edu2)}
+  .tech{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .tech span{font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line);
+    padding:5px 11px;border-radius:8px}
+  .status{margin-top:16px;font-size:13px;color:var(--muted)}
+  .status b{color:var(--accent)}
+
+  /* Galería de fotos (se ocultan solas si no existe la imagen) */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:20px}
+  .gallery img{width:100%;height:150px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+
+  /* ---------- SOBRE MÍ ---------- */
+  .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:30px}
+  .about-card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:22px}
+  .about-card .ico{font-size:26px}
+  .about-card h4{margin-top:10px;font-size:16px}
+  .about-card p{color:var(--muted);font-size:13.5px;margin-top:6px}
+
+  /* ---------- CONTACTO / FOOTER ---------- */
+  .contact{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  footer{padding:30px 0;text-align:center;color:var(--muted);font-size:13px}
+  @media(max-width:640px){.banner,.body{padding:24px 20px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><div class="mark">HX</div><span>HXAS</span></div>
+    <h1>Construyo software que resuelve <em>problemas reales</em>: salud, educación y robótica.</h1>
+    <p class="lead">Desarrollador de software de Ecuador 🇪🇨. Diseño y construyo productos completos
+      —app, backend, datos e inteligencia artificial— con foco en automatización, IoT y visión artificial.</p>
+    <div class="chips">
+      <span class="chip">🤖 Automatización</span>
+      <span class="chip">📡 IoT</span>
+      <span class="chip">🧠 Inteligencia artificial</span>
+      <span class="chip">👁️ Visión artificial</span>
+      <span class="chip">📱 Apps móviles (Flutter)</span>
+      <span class="chip">☁️ Backend serverless</span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" href="#proyectos">Ver mis proyectos ↓</a>
+      <a class="btn btn-ghost" href="mailto:kahuxixa@gmail.com">✉️ kahuxixa@gmail.com</a>
+    </div>
+  </div>
+</header>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="kicker">Portafolio</div>
+    <h2>Proyectos en los que estoy trabajando</h2>
+    <p class="sub">Productos end-to-end: desde el scraping de datos y el backend hasta la app en el
+      teléfono del usuario — o desde el motor con encoder hasta el modelo de visión del robot.</p>
+
+    <!-- ══════════ MEDIALL ══════════ -->
+    <article class="project">
+      <div class="banner b-mediall">
+        <span class="tag">Salud · App Android</span>
+        <h3>💊 Mediall</h3>
+        <p>Compara los precios de una medicina en las farmacias de Ecuador y te dice dónde comprar más barato.</p>
+      </div>
+      <div class="body">
+        <p class="desc">Cuando alguien está enfermo y con poco presupuesto, cada dólar cuenta. Mediall
+          recopila cada madrugada los catálogos públicos de las 5 principales cadenas de farmacias del país
+          (más de <b>16.000 medicinas</b> con foto y precio) y los pone a comparar en una sola tarjeta.</p>
+        <div class="feats">
+          <div class="feat"><span class="dot d-mediall"></span><span><b>Escaneo de recetas con IA</b> — foto a la receta y la app encuentra las medicinas (OCR 100% en el teléfono).</span></div>
+          <div class="feat"><span class="dot d-mediall"></span><span><b>"Mi receta"</b> — agrupa lo recetado y calcula si conviene comprar todo en una sola farmacia o por separado.</span></div>
+          <div class="feat"><span class="dot d-mediall"></span><span><b>Farmacias cercanas</b> con aviso de cuáles tienen tu receta completa (GPS + PostGIS).</span></div>
+          <div class="feat"><span class="dot d-mediall"></span><span><b>Asistente de malestares</b> — guía segura de venta libre que siempre recuerda acudir al médico.</span></div>
+          <div class="feat"><span class="dot d-mediall"></span><span><b>Alarmas de medicación</b> que suenan incluso en modo silencio.</span></div>
+          <div class="feat"><span class="dot d-mediall"></span><span><b>Scrapers propios</b> para 3 plataformas de e-commerce distintas (VTEX, Salesforce CC, DNN), corriendo solos en la nube.</span></div>
+        </div>
+        <div class="gallery">
+          <img src="assets/mediall/1.jpg" alt="Captura de Mediall" onerror="this.remove()">
+          <img src="assets/mediall/2.jpg" alt="Captura de Mediall" onerror="this.remove()">
+          <img src="assets/mediall/3.jpg" alt="Captura de Mediall" onerror="this.remove()">
+        </div>
+        <div class="tech">
+          <span>Flutter</span><span>Supabase · PostgreSQL</span><span>Cloudflare Workers</span>
+          <span>ML Kit OCR</span><span>PostGIS</span><span>AdMob</span><span>Actualización OTA propia</span>
+        </div>
+        <p class="status"><b>Estado:</b> en pruebas con usuarios reales; camino a Google Play.</p>
+      </div>
+    </article>
+
+    <!-- ══════════ HUKAZEOS OS ══════════ -->
+    <article class="project">
+      <div class="banner b-huka">
+        <span class="tag">SaaS · Salud dental</span>
+        <h3>🦷 HuKazeos OS</h3>
+        <p>El sistema operativo del consultorio dental: pacientes, citas, inventario y una comunidad profesional.</p>
+      </div>
+      <div class="body">
+        <p class="desc">Plataforma multi-clínica que centraliza la gestión clínica y administrativa del
+          odontólogo, con los datos respaldados y aislados en la nube por clínica (Row Level Security).
+          Su diferenciador: una <b>mini red social profesional integrada</b> donde los odontólogos comparten
+          casos, se dan segundas opiniones y se refieren pacientes.</p>
+        <div class="feats">
+          <div class="feat"><span class="dot d-huka"></span><span><b>Historia clínica + odontograma</b> interactivo por superficies dentales.</span></div>
+          <div class="feat"><span class="dot d-huka"></span><span><b>Agenda de citas</b> con recordatorios automáticos por WhatsApp (reduce el ausentismo, el dolor #1 del sector).</span></div>
+          <div class="feat"><span class="dot d-huka"></span><span><b>Inventario con OCR</b> — foto a la factura y se carga solo, con alertas de caducidad.</span></div>
+          <div class="feat"><span class="dot d-huka"></span><span><b>Comunidad profesional</b> — feed de casos clínicos con reacciones y comentarios entre colegas.</span></div>
+          <div class="feat"><span class="dot d-huka"></span><span><b>Esterilización y mantenimiento</b> de equipos con registros de control.</span></div>
+          <div class="feat"><span class="dot d-huka"></span><span><b>Panel web de administración</b> con planes, estadísticas y soporte por chat en vivo.</span></div>
+        </div>
+        <div class="gallery">
+          <img src="assets/hukazeos/1.jpg" alt="Captura de HuKazeos OS" onerror="this.remove()">
+          <img src="assets/hukazeos/2.jpg" alt="Captura de HuKazeos OS" onerror="this.remove()">
+          <img src="assets/hukazeos/3.jpg" alt="Captura de HuKazeos OS" onerror="this.remove()">
+        </div>
+        <div class="tech">
+          <span>Flutter</span><span>Supabase · RLS multi-tenant</span><span>Cloudflare Workers · R2 · Pages</span>
+          <span>WhatsApp Cloud API</span><span>OCR</span><span>IA (dictado clínico)</span>
+        </div>
+        <p class="status"><b>Estado:</b> en desarrollo activo; arquitectura y módulos core funcionando.</p>
+      </div>
+    </article>
+
+    <!-- ══════════ ROBUZ ══════════ -->
+    <article class="project">
+      <div class="banner b-robuz">
+        <span class="tag">Robótica · IoT · Visión artificial</span>
+        <h3>🤖 Robuz</h3>
+        <p>Robot vehículo autónomo con visión en tiempo real, brazo robótico y comandos de voz.</p>
+      </div>
+      <div class="body">
+        <p class="desc">Mi proyecto de hardware: un robot construido desde cero sobre una
+          <b>Raspberry Pi 5</b> (cerebro de visión e IA) y un <b>ESP32</b> (control de motores y sensores en
+          tiempo real). Ve, entiende y actúa: detecta objetos con la cámara, navega solo y los manipula
+          con su brazo robótico.</p>
+        <div class="feats">
+          <div class="feat"><span class="dot d-robuz"></span><span><b>Detección de objetos en tiempo real</b> con la cámara a bordo (visión artificial).</span></div>
+          <div class="feat"><span class="dot d-robuz"></span><span><b>Sabe exactamente dónde está</b>: fusiona motores con encoders, GPS y sensores láser para localizarse.</span></div>
+          <div class="feat"><span class="dot d-robuz"></span><span><b>Movimiento autónomo</b> y control remoto — decide su ruta o obedece al operador.</span></div>
+          <div class="feat"><span class="dot d-robuz"></span><span><b>Brazo robótico</b> para recoger y manipular objetos.</span></div>
+          <div class="feat"><span class="dot d-robuz"></span><span><b>Comandos de voz</b> — le hablas y ejecuta.</span></div>
+          <div class="feat"><span class="dot d-robuz"></span><span><b>En crecimiento</b>: próximamente LiDAR para mapeo y una estación de carga automática (vuelve solo a cargarse).</span></div>
+        </div>
+        <div class="gallery">
+          <img src="assets/robuz/1.jpg" alt="Robuz — robot autónomo" onerror="this.remove()">
+          <img src="assets/robuz/2.jpg" alt="Robuz — brazo robótico" onerror="this.remove()">
+          <img src="assets/robuz/3.jpg" alt="Robuz — electrónica" onerror="this.remove()">
+          <img src="assets/robuz/4.jpg" alt="Robuz en acción" onerror="this.remove()">
+        </div>
+        <div class="tech">
+          <span>Raspberry Pi 5</span><span>ESP32</span><span>Python · C++</span><span>Visión artificial</span>
+          <span>Encoders + GPS + láser</span><span>Reconocimiento de voz</span><span>Próx.: LiDAR</span>
+        </div>
+        <p class="status"><b>Estado:</b> funcional y en evolución constante.</p>
+      </div>
+    </article>
+
+    <!-- ══════════ EDUCACIÓN ══════════ -->
+    <article class="project">
+      <div class="banner b-edu">
+        <span class="tag">Educación · IA</span>
+        <h3>📚 Asistente docente con IA <span style="font-size:14px;opacity:.85">(en diseño)</span></h3>
+        <p>Guía a los profesores con las notas de sus alumnos y genera exámenes únicos que reducen la copia.</p>
+      </div>
+      <div class="body">
+        <p class="desc">Una herramienta para devolverle tiempo al profesor: centraliza y analiza las
+          calificaciones para detectar a tiempo a los estudiantes que se están quedando atrás, y usa
+          <b>IA para generar exámenes guiados</b> — variantes equivalentes de una misma evaluación por
+          estudiante, de modo que copiar deje de tener sentido sin volverse injusto.</p>
+        <div class="feats">
+          <div class="feat"><span class="dot d-edu"></span><span><b>Seguimiento de notas</b> con alertas tempranas de bajo rendimiento.</span></div>
+          <div class="feat"><span class="dot d-edu"></span><span><b>Exámenes generados por IA</b> — mismo temario y dificultad, preguntas distintas por alumno.</span></div>
+          <div class="feat"><span class="dot d-edu"></span><span><b>Reportes claros</b> para el docente, el estudiante y los padres.</span></div>
+        </div>
+        <div class="tech">
+          <span>IA generativa</span><span>Flutter / Web</span><span>Análisis de datos</span>
+        </div>
+        <p class="status"><b>Estado:</b> etapa de diseño y validación con docentes.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="contact" id="sobre-mi">
+  <div class="wrap">
+    <div class="kicker">Sobre mí</div>
+    <h2>Lo que me mueve</h2>
+    <p class="sub">Me gusta llevar una idea desde cero hasta las manos del usuario: investigar el problema,
+      diseñar la arquitectura, construir el producto completo y verlo funcionar en el mundo real.</p>
+    <div class="about-grid">
+      <div class="about-card"><div class="ico">⚙️</div><h4>Automatización</h4>
+        <p>Sistemas que trabajan solos: scrapers diarios en la nube, pipelines de datos, despliegues y actualizaciones automáticas.</p></div>
+      <div class="about-card"><div class="ico">📡</div><h4>IoT y hardware</h4>
+        <p>Raspberry Pi, ESP32, sensores, motores y todo lo que conecte el software con el mundo físico.</p></div>
+      <div class="about-card"><div class="ico">🧠</div><h4>Inteligencia artificial</h4>
+        <p>IA aplicada con propósito: OCR de recetas y facturas, generación de exámenes, asistentes que orientan sin reemplazar al profesional.</p></div>
+      <div class="about-card"><div class="ico">👁️</div><h4>Visión artificial</h4>
+        <p>Detección de objetos en tiempo real, reconocimiento de texto en imágenes y percepción para robótica.</p></div>
+    </div>
+    <div class="cta" style="margin-top:36px">
+      <a class="btn btn-primary" href="mailto:kahuxixa@gmail.com">✉️ Escríbeme</a>
+      <a class="btn btn-ghost" href="https://github.com/kahuxixa-svg" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">HXAS · Hecho en Ecuador 🇪🇨 · © 2026</div>
+</footer>
+
+</body>
+</html>
