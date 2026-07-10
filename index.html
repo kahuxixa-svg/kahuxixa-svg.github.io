@@ -3,282 +3,534 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HXAS — Proyectos de software, IoT e IA · Ecuador</title>
-<meta name="description" content="Portafolio de HXAS: Mediall (comparador de precios de medicinas), HuKazeos OS (gestión para clínicas dentales), Robuz (robot autónomo con visión artificial) y más. Automatización, IoT, IA y visión artificial desde Ecuador.">
+<title>HXAS — Sistemas embebidos, robótica, IA y apps · Ecuador</title>
+<meta name="description" content="HXAS: ingeniería de sistemas embebidos, robótica, visión artificial y aplicaciones. Proyectos: Mediall, HuKazeos OS, Robuz. Hecho en Ecuador.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b1220; --bg2:#0f1729; --card:#121c31; --line:rgba(255,255,255,.08);
-    --ink:#eef2f9; --muted:#93a0b8; --accent:#14b8a6;
+    --bg:#070c16; --bg2:#0a1120; --card:#0e1728; --card2:#111d33;
+    --line:rgba(148,180,255,.10); --line2:rgba(148,180,255,.18);
+    --ink:#e9eefb; --muted:#8fa0bd; --dim:#5b6b88;
+    --accent:#22d3ae; --accent2:#38bdf8;
     --mediall1:#0e9d74; --mediall2:#14b8a6;
     --huka1:#2563eb; --huka2:#06b6d4;
     --robuz1:#ea580c; --robuz2:#f59e0b;
     --edu1:#7c3aed; --edu2:#db2777;
+    --mono:'JetBrains Mono',monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
   a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  ::selection{background:rgba(34,211,174,.35)}
 
-  /* ---------- HERO ---------- */
-  header{position:relative;overflow:hidden;padding:84px 0 64px;
-    background:
-      radial-gradient(600px 340px at 85% -10%, rgba(20,184,166,.16), transparent 60%),
-      radial-gradient(520px 300px at 0% 110%, rgba(37,99,235,.14), transparent 60%),
-      var(--bg2);}
-  .logo{display:flex;align-items:center;gap:12px;margin-bottom:34px}
-  .logo .mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
-    background:linear-gradient(135deg,var(--mediall1),var(--huka1));font-weight:800;font-size:15px;letter-spacing:.5px}
-  .logo span{font-weight:800;font-size:19px;letter-spacing:.4px}
-  h1{font-size:clamp(30px,5.4vw,52px);font-weight:800;line-height:1.13;max-width:760px}
-  h1 em{font-style:normal;background:linear-gradient(90deg,var(--mediall2),var(--huka2));
+  /* ═════════ NAV ═════════ */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(7,12,22,.72);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+  .brand .mk{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;
+    font:700 12px var(--mono);background:linear-gradient(135deg,var(--mediall1),var(--huka1))}
+  .led{width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 8px var(--accent);animation:led 2.4s infinite}
+  @keyframes led{0%,100%{opacity:1}50%{opacity:.25}}
+  .nav-links{display:flex;gap:26px;font-size:13.5px;font-weight:700}
+  .nav-links a{color:var(--muted)} .nav-links a:hover{color:var(--ink)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* ═════════ HERO ═════════ */
+  header{position:relative;padding:150px 0 90px;overflow:hidden;background:var(--bg2)}
+  .grid-bg{position:absolute;inset:0;opacity:.5;
+    background-image:linear-gradient(rgba(148,180,255,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(148,180,255,.05) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(720px 480px at 30% 20%, #000 0%, transparent 75%)}
+  .glow{position:absolute;width:560px;height:560px;border-radius:50%;filter:blur(90px);opacity:.16;pointer-events:none}
+  .g1{background:var(--accent);top:-220px;right:-120px}
+  .g2{background:var(--huka1);bottom:-260px;left:-160px}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr}}
+  .status{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--mono);color:var(--accent);
+    border:1px solid rgba(34,211,174,.3);background:rgba(34,211,174,.07);
+    padding:6px 12px;border-radius:999px;letter-spacing:.6px}
+  h1{font-size:clamp(30px,4.8vw,50px);font-weight:800;line-height:1.12;margin-top:20px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .lead{margin-top:18px;max-width:640px;color:var(--muted);font-size:17px}
-  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
-  .chip{border:1px solid var(--line);background:rgba(255,255,255,.04);padding:7px 14px;
-    border-radius:999px;font-size:13px;font-weight:600;color:#c8d2e4}
-  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .lead{margin-top:16px;max-width:560px;color:var(--muted);font-size:16.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .chip{border:1px solid var(--line2);background:rgba(148,180,255,.05);padding:6px 13px;
+    border-radius:999px;font-size:12.5px;font-weight:700;color:#bcc9e2}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;
-    font-weight:700;font-size:14.5px;transition:transform .15s ease, box-shadow .15s ease}
+    font-weight:800;font-size:14px;transition:transform .15s,box-shadow .15s}
   .btn:hover{transform:translateY(-2px)}
-  .btn-primary{background:linear-gradient(135deg,var(--mediall1),var(--mediall2));color:#fff;
-    box-shadow:0 8px 24px rgba(20,184,166,.28)}
-  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.04)}
+  .btn-p{background:linear-gradient(135deg,var(--accent),#0ea5e9);color:#04222b;
+    box-shadow:0 10px 28px rgba(34,211,174,.25)}
+  .btn-g{border:1px solid var(--line2);color:var(--ink);background:rgba(148,180,255,.05)}
 
-  /* ---------- SECCIONES ---------- */
-  section{padding:70px 0}
-  .kicker{font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
-  h2{font-size:clamp(24px,3.6vw,34px);font-weight:800;margin-top:8px}
-  .sub{color:var(--muted);margin-top:10px;max-width:640px}
+  /* terminal */
+  .term{border:1px solid var(--line2);border-radius:14px;background:#081019;overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,.45);font:13px/1.75 var(--mono)}
+  .term-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#0c1622;border-bottom:1px solid var(--line)}
+  .term-bar i{width:11px;height:11px;border-radius:50%;display:block}
+  .term-bar i:nth-child(1){background:#ff5f57}.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+  .term-bar span{margin-left:8px;color:var(--dim);font-size:11.5px}
+  .term-body{padding:16px 18px;min-height:238px;color:#a7f3d0}
+  .term-body .p{color:var(--accent2)} .term-body .o{color:#cbd5e1}
+  .cursor{display:inline-block;width:8px;height:15px;background:var(--accent);vertical-align:-2px;animation:led 1s steps(1) infinite}
 
-  /* ---------- PROYECTOS ---------- */
-  .project{margin-top:34px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
-  .banner{padding:34px 34px 28px;position:relative;overflow:hidden}
-  .banner::after{content:"";position:absolute;inset:0;
-    background:radial-gradient(420px 200px at 90% -30%, rgba(255,255,255,.18), transparent 60%)}
-  .banner .tag{display:inline-block;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);
-    padding:5px 13px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#fff}
-  .banner h3{color:#fff;font-size:clamp(24px,3.4vw,32px);font-weight:800;margin-top:12px;position:relative;z-index:1}
-  .banner p{color:rgba(255,255,255,.92);margin-top:6px;max-width:600px;font-weight:600;position:relative;z-index:1}
-  .b-mediall{background:linear-gradient(120deg,var(--mediall1),var(--mediall2))}
-  .b-huka{background:linear-gradient(120deg,var(--huka1),var(--huka2))}
-  .b-robuz{background:linear-gradient(120deg,var(--robuz1),var(--robuz2))}
-  .b-edu{background:linear-gradient(120deg,var(--edu1),var(--edu2))}
-  .body{padding:28px 34px 30px}
-  .body p.desc{color:#c4cede;font-size:15.5px}
-  .feats{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-  .feat{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#c4cede}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:60px;position:relative}
+  .stat{border:1px solid var(--line);background:rgba(148,180,255,.03);border-radius:14px;padding:16px 18px}
+  .stat b{display:block;font:800 26px var(--mono);color:var(--ink)}
+  .stat b em{font-style:normal;color:var(--accent);font-size:18px}
+  .stat span{font-size:12px;color:var(--muted);font-weight:600}
+
+  /* ═════════ SECCIONES ═════════ */
+  section{padding:84px 0}
+  .kick{font:700 12px var(--mono);letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+  .kick::before{content:"// "}
+  h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;margin-top:10px}
+  .sub{color:var(--muted);margin-top:10px;max-width:640px;font-size:15.5px}
+
+  /* proyecto: layout alternado */
+  .proj{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center;margin-top:70px}
+  .proj.rev .media{order:2} .proj.rev .info{order:1}
+  @media(max-width:880px){.proj{grid-template-columns:1fr}.proj.rev .media{order:0}}
+  .ptag{display:inline-flex;align-items:center;gap:8px;font:700 11.5px var(--mono);letter-spacing:1.5px;
+    text-transform:uppercase;padding:6px 12px;border-radius:8px;color:#fff}
+  .t-mediall{background:linear-gradient(90deg,var(--mediall1),var(--mediall2))}
+  .t-huka{background:linear-gradient(90deg,var(--huka1),var(--huka2))}
+  .t-robuz{background:linear-gradient(90deg,var(--robuz1),var(--robuz2))}
+  .t-edu{background:linear-gradient(90deg,var(--edu1),var(--edu2))}
+  .proj h3{font-size:clamp(22px,3vw,30px);font-weight:800;margin-top:14px}
+  .proj p.d{color:#b7c3da;margin-top:10px;font-size:15px}
+  .feats{margin-top:16px;display:grid;gap:9px}
+  .feat{display:flex;gap:10px;font-size:13.8px;color:#b7c3da}
   .feat b{color:var(--ink)}
-  .dot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;margin-top:7px}
-  .d-mediall{background:var(--mediall2)} .d-huka{background:var(--huka2)}
-  .d-robuz{background:var(--robuz2)} .d-edu{background:var(--edu2)}
-  .tech{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-  .tech span{font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line);
-    padding:5px 11px;border-radius:8px}
-  .status{margin-top:16px;font-size:13px;color:var(--muted)}
-  .status b{color:var(--accent)}
+  .feat i{flex:0 0 auto;width:7px;height:7px;border-radius:50%;margin-top:7.5px;font-style:normal}
+  .i-mediall{background:var(--mediall2)}.i-huka{background:var(--huka2)}.i-robuz{background:var(--robuz2)}.i-edu{background:var(--edu2)}
+  .tech{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+  .tech span{font:600 11px var(--mono);color:var(--muted);border:1px solid var(--line2);padding:5px 10px;border-radius:7px}
+  .state{margin-top:14px;font:600 12px var(--mono);color:var(--dim)}
+  .state b{color:var(--accent)}
 
-  /* Galería de fotos (se ocultan solas si no existe la imagen) */
-  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:20px}
-  .gallery img{width:100%;height:150px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+  /* teléfonos mockup (vista de la interfaz dibujada en código: siempre nítida) */
+  .media{position:relative}
+  .phones{display:flex;justify-content:center;align-items:flex-end;gap:0;perspective:1200px}
+  .phone{width:230px;flex:0 0 auto;background:#050a12;border-radius:32px;padding:9px;border:1px solid var(--line2);
+    box-shadow:0 34px 70px rgba(0,0,0,.55);transition:transform .35s ease}
+  .phone .screen{border-radius:24px;overflow:hidden;background:#f3f8f6;height:452px;position:relative}
+  .phone .notch{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:74px;height:17px;
+    background:#050a12;border-radius:999px;z-index:5}
+  .phone.back{transform:rotate(-7deg) translateX(26px) translateY(14px) scale(.93);z-index:1;filter:brightness(.75)}
+  .phone.front{transform:rotate(3.5deg) translateX(-16px);z-index:2}
+  .phones:hover .front{transform:rotate(1deg) translateX(-20px) translateY(-8px)}
+  .phones:hover .back{transform:rotate(-9deg) translateX(30px) translateY(8px) scale(.93);filter:brightness(.92)}
+  .scr{font-size:9px;height:100%;display:flex;flex-direction:column}
+  /* Mediall */
+  .m-head{background:linear-gradient(120deg,#0e9d74,#14b8a6);padding:26px 12px 14px;border-radius:0 0 18px 18px;color:#fff}
+  .m-brand{display:flex;align-items:center;gap:5px;font-weight:800;font-size:11px}
+  .m-brand i{width:14px;height:14px;border-radius:4px;background:#fff;display:grid;place-items:center;font-style:normal;color:#0e9d74;font-size:9px;font-weight:900}
+  .m-q{font-weight:800;font-size:11.5px;margin-top:8px}
+  .m-search{background:#fff;border-radius:8px;margin-top:7px;padding:6px 8px;color:#9aa7a2;display:flex;gap:5px;align-items:center}
+  .m-search b{color:#0e9d74;font-weight:900}
+  .m-body{padding:9px 10px;flex:1;background:#f3f8f6}
+  .m-assist{background:linear-gradient(120deg,rgba(124,58,237,.12),rgba(20,184,166,.12));
+    border:1px solid rgba(124,58,237,.3);border-radius:9px;padding:7px 8px;display:flex;gap:6px;align-items:center}
+  .m-assist i{width:18px;height:18px;flex:0 0 auto;border-radius:6px;font-style:normal;display:grid;place-items:center;
+    background:linear-gradient(135deg,#7c3aed,#14b8a6);color:#fff;font-size:9px}
+  .m-assist b{display:block;color:#14302a;font-size:8.6px}
+  .m-assist span{color:#6b7b76;font-size:7.4px;line-height:1.25;display:block}
+  .m-cats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+  .m-cat{background:#fff;border-radius:9px;padding:7px;border:1px solid rgba(0,0,0,.05)}
+  .m-cat i{width:15px;height:15px;border-radius:5px;display:grid;place-items:center;font-style:normal;font-size:8px}
+  .m-cat b{display:block;margin-top:5px;color:#14302a;font-size:8.2px}
+  .m-cat span{color:#6b7b76;font-size:7px}
+  .m-nav{background:#fff;border-top:1px solid rgba(0,0,0,.06);display:flex;justify-content:space-around;padding:7px 0 10px;font-size:11px}
+  .m-nav em{font-style:normal;opacity:.4}.m-nav em.on{opacity:1}
+  .m-bar{background:#fff;padding:24px 10px 8px;font-weight:800;color:#14302a;font-size:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+  .m-best{margin:8px 9px 0;background:#e7f6ec;border:1px solid #bfe6cb;border-radius:8px;padding:6px 8px;color:#166534;font-size:8.2px;display:flex;justify-content:space-between;align-items:center}
+  .m-best b{font-size:10.5px}
+  .m-row{margin:6px 9px 0;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:8px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center}
+  .m-row .nm b{display:block;color:#14302a;font-size:8.4px}
+  .m-row .nm span{color:#15a34a;font-size:7px}
+  .m-row .pr{font-weight:900;color:#14302a;font-size:9.5px}
+  .m-row.win{border-color:#86efac}.m-row.win .pr{color:#15803d}
+  /* HuKazeos */
+  .h-head{background:linear-gradient(120deg,#2563eb,#06b6d4);padding:26px 12px 12px;color:#fff}
+  .h-head b{font-size:11px;font-weight:800}
+  .h-head span{display:block;font-size:7.6px;opacity:.9}
+  .h-kpis{display:flex;gap:6px;margin:9px 9px 0}
+  .h-kpi{flex:1;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:6px;text-align:center}
+  .h-kpi b{display:block;color:#1e3a8a;font-size:11px}
+  .h-kpi span{color:#64748b;font-size:6.8px}
+  .h-sec{margin:9px 9px 4px;color:#0f172a;font-weight:800;font-size:8.6px}
+  .h-cita{margin:5px 9px 0;background:#fff;border:1px solid rgba(0,0,0,.07);border-left:3px solid #06b6d4;border-radius:8px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center}
+  .h-cita b{display:block;color:#0f172a;font-size:8.4px}
+  .h-cita span{color:#64748b;font-size:7px}
+  .h-cita .hr{font:700 8.5px var(--mono);color:#2563eb}
+  .h-alert{margin:8px 9px 0;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:5px 8px;color:#b91c1c;font-size:7.4px;font-weight:700}
+  .h-feed{margin:5px 9px 0;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:8px;padding:6px 8px}
+  .h-feed b{color:#0f172a;font-size:8.2px}
+  .h-feed span{display:block;color:#64748b;font-size:7.2px;margin-top:2px}
+  .h-feed .rx{margin-top:4px;color:#2563eb;font-size:7px;font-weight:700}
+  /* edu */
+  .e-head{background:linear-gradient(120deg,#7c3aed,#db2777);padding:26px 12px 12px;color:#fff}
+  .e-head b{font-size:10.5px;font-weight:800}
+  .e-card{margin:8px 9px 0;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:8px;padding:7px 8px}
+  .e-card b{color:#1e1b4b;font-size:8.4px;display:block}
+  .e-card span{color:#64748b;font-size:7.2px}
+  .e-bar{height:5px;border-radius:99px;background:#ede9fe;margin-top:5px;overflow:hidden}
+  .e-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#7c3aed,#db2777)}
+  .e-ia{margin:8px 9px 0;background:#f5f3ff;border:1px dashed #c4b5fd;border-radius:8px;padding:6px 8px;color:#5b21b6;font-size:7.4px}
+  .e-ia b{font-size:8.2px;display:block}
 
-  /* ---------- SOBRE MÍ ---------- */
-  .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:30px}
-  .about-card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:22px}
-  .about-card .ico{font-size:26px}
-  .about-card h4{margin-top:10px;font-size:16px}
-  .about-card p{color:var(--muted);font-size:13.5px;margin-top:6px}
+  /* robuz media */
+  .robuz-media{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .robuz-media .slot{position:relative;border:1.5px dashed var(--line2);border-radius:16px;background:rgba(148,180,255,.03);
+    min-height:150px;display:grid;place-items:center;text-align:center;padding:16px;color:var(--dim);font:600 11.5px var(--mono)}
+  .robuz-media img,.robuz-media video{width:100%;height:100%;min-height:150px;object-fit:cover;border-radius:16px;border:1px solid var(--line2);background:#000}
+  .robuz-media .wide{grid-column:1/-1}
+  .specs{margin-top:14px;border:1px solid var(--line2);border-radius:14px;background:#081019;padding:14px 16px;font:12px/2 var(--mono)}
+  .specs .r{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(148,180,255,.08)}
+  .specs .r:last-child{border-bottom:0}
+  .specs .k{color:var(--dim)} .specs .v{color:#a7f3d0;font-weight:600;text-align:right}
+  .specs .v.soon{color:var(--robuz2)}
 
-  /* ---------- CONTACTO / FOOTER ---------- */
+  /* stack */
+  .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:34px}
+  .box{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:20px}
+  .box h4{font-size:14.5px;display:flex;align-items:center;gap:8px}
+  .box h4 .ic{font-size:18px}
+  .box .tech{margin-top:12px}
+
   .contact{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  footer{padding:30px 0;text-align:center;color:var(--muted);font-size:13px}
-  @media(max-width:640px){.banner,.body{padding:24px 20px}}
+  footer{padding:30px 0;text-align:center;color:var(--dim);font:600 12px var(--mono)}
+  footer a{color:var(--dim)}
+
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .rv.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    .cursor,.led{animation:none}
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="logo"><div class="mark">HX</div><span>HXAS</span></div>
-    <h1>Construyo software que resuelve <em>problemas reales</em>: salud, educación y robótica.</h1>
-    <p class="lead">Desarrollador de software de Ecuador 🇪🇨. Diseño y construyo productos completos
-      —app, backend, datos e inteligencia artificial— con foco en automatización, IoT y visión artificial.</p>
-    <div class="chips">
-      <span class="chip">🤖 Automatización</span>
-      <span class="chip">📡 IoT</span>
-      <span class="chip">🧠 Inteligencia artificial</span>
-      <span class="chip">👁️ Visión artificial</span>
-      <span class="chip">📱 Apps móviles (Flutter)</span>
-      <span class="chip">☁️ Backend serverless</span>
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><div class="mk">HX</div> HXAS <span class="led"></span></div>
+    <div class="nav-links">
+      <a href="#proyectos">Proyectos</a><a href="#stack">Stack</a>
+      <a href="#sobre-mi">Sobre mí</a><a href="mailto:kahuxixa@gmail.com">Contacto</a>
     </div>
-    <div class="cta">
-      <a class="btn btn-primary" href="#proyectos">Ver mis proyectos ↓</a>
-      <a class="btn btn-ghost" href="mailto:kahuxixa@gmail.com">✉️ kahuxixa@gmail.com</a>
+  </div>
+</nav>
+
+<header>
+  <div class="grid-bg"></div>
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="status"><span class="led"></span> DISPONIBLE · ECUADOR</span>
+        <h1>Ingeniería de <em>sistemas embebidos</em>, robótica, IA y aplicaciones.</h1>
+        <p class="lead">Construyo productos completos: del sensor y el firmware al modelo de visión,
+          del backend en la nube a la app en el teléfono del usuario.</p>
+        <div class="chips">
+          <span class="chip">Raspberry Pi · ESP32</span><span class="chip">Visión artificial</span>
+          <span class="chip">Robótica</span><span class="chip">Flutter</span>
+          <span class="chip">IA aplicada</span><span class="chip">Cloud serverless</span>
+        </div>
+        <div class="cta">
+          <a class="btn btn-p" href="#proyectos">Ver proyectos ↓</a>
+          <a class="btn btn-g" href="mailto:kahuxixa@gmail.com">✉️ Escríbeme</a>
+        </div>
+      </div>
+      <div class="term rv">
+        <div class="term-bar"><i></i><i></i><i></i><span>hxas@lab:~</span></div>
+        <div class="term-body" id="term"></div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat rv"><b><span data-n="4">0</span></b><span>proyectos activos</span></div>
+      <div class="stat rv"><b><span data-n="16753">0</span><em>+</em></b><span>medicinas indexadas a diario</span></div>
+      <div class="stat rv"><b><span data-n="2">0</span></b><span>cerebros en Robuz (RPi5 + ESP32)</span></div>
+      <div class="stat rv"><b><span data-n="100">0</span><em>%</em></b><span>hecho en Ecuador 🇪🇨</span></div>
     </div>
   </div>
 </header>
 
 <section id="proyectos">
   <div class="wrap">
-    <div class="kicker">Portafolio</div>
-    <h2>Proyectos en los que estoy trabajando</h2>
-    <p class="sub">Productos end-to-end: desde la recolección automática de datos y el backend hasta la app
-      en el teléfono del usuario — o desde el motor con encoder hasta el modelo de visión del robot.</p>
+    <div class="kick">Proyectos</div>
+    <h2>Del hardware al usuario final</h2>
+    <p class="sub">Cada proyecto cubre el ciclo completo: investigación del problema, arquitectura,
+      construcción, datos e inteligencia — y despliegue real.</p>
 
-    <!-- ══════════ MEDIALL ══════════ -->
-    <article class="project">
-      <div class="banner b-mediall">
-        <span class="tag">Salud · App Android</span>
-        <h3>💊 Mediall</h3>
-        <p>Compara los precios de una medicina en las farmacias de Ecuador y te dice dónde comprar más barato.</p>
+    <!-- ═════ MEDIALL ═════ -->
+    <div class="proj rv">
+      <div class="media">
+        <div class="phones">
+          <div class="phone back"><div class="screen"><div class="notch"></div>
+            <div class="scr">
+              <div class="m-bar">← Comparar precios</div>
+              <div style="flex:1;background:#f3f8f6">
+                <div class="m-best"><span>Más barato en<br><b>Farmacias Sinaí</b></span><b>$3.20</b></div>
+                <div class="m-row win"><div class="nm"><b>Farmacias Sinaí</b><span>En stock</span></div><div class="pr">$3.20</div></div>
+                <div class="m-row"><div class="nm"><b>Fybeca</b><span>En stock</span></div><div class="pr">$3.85</div></div>
+                <div class="m-row"><div class="nm"><b>Pharmacys</b><span>En stock</span></div><div class="pr">$4.10</div></div>
+                <div class="m-row"><div class="nm"><b>Cruz Azul</b><span>En stock</span></div><div class="pr">$4.10</div></div>
+                <div class="m-row"><div class="nm"><b>Medicity</b><span>En stock</span></div><div class="pr">$4.35</div></div>
+              </div>
+              <div class="m-nav"><em class="on">🔍</em><em>🧾</em><em>❤️</em><em>⏰</em><em>📍</em></div>
+            </div>
+          </div></div>
+          <div class="phone front"><div class="screen"><div class="notch"></div>
+            <div class="scr">
+              <div class="m-head">
+                <div class="m-brand"><i>✚</i> Mediall</div>
+                <div class="m-q">¿Qué medicina necesitas hoy?</div>
+                <div class="m-search"><b>⌕</b> Escribe el nombre, ej. paracetamol…</div>
+              </div>
+              <div class="m-body">
+                <div class="m-assist"><i>🤖</i><div><b>¿No sabes qué tomar?</b><span>Cuéntale tu malestar al asistente y te orienta.</span></div></div>
+                <div class="m-cats">
+                  <div class="m-cat"><i style="background:#e6f6f0">💊</i><b>Antibióticos</b><span>412 medicinas</span></div>
+                  <div class="m-cat"><i style="background:#e0f4f8">🫁</i><b>Respiratorio</b><span>380 medicinas</span></div>
+                  <div class="m-cat"><i style="background:#f1ebfd">🧠</i><b>Sistema nervioso</b><span>514 medicinas</span></div>
+                  <div class="m-cat"><i style="background:#fdf1e0">❤️</i><b>Corazón</b><span>468 medicinas</span></div>
+                </div>
+              </div>
+              <div class="m-nav"><em class="on">🔍</em><em>🧾</em><em>❤️</em><em>⏰</em><em>📍</em></div>
+            </div>
+          </div></div>
+        </div>
       </div>
-      <div class="body">
-        <p class="desc">Cuando alguien está enfermo y con poco presupuesto, cada dólar cuenta. Mediall
-          recopila cada madrugada los catálogos públicos de las 5 principales cadenas de farmacias del país
-          (más de <b>16.000 medicinas</b> con foto y precio) y los pone a comparar en una sola tarjeta.</p>
+      <div class="info">
+        <span class="ptag t-mediall">Salud · App Android</span>
+        <h3>Mediall — encuentra tu medicina al mejor precio</h3>
+        <p class="d">Compara en segundos el precio de más de <b>16.000 medicinas</b> entre las 5
+          principales cadenas de farmacias de Ecuador. Los catálogos públicos se recolectan
+          automáticamente cada madrugada en la nube.</p>
         <div class="feats">
-          <div class="feat"><span class="dot d-mediall"></span><span><b>Escaneo de recetas con IA</b> — foto a la receta y la app encuentra las medicinas (OCR 100% en el teléfono).</span></div>
-          <div class="feat"><span class="dot d-mediall"></span><span><b>"Mi receta"</b> — agrupa lo recetado y calcula si conviene comprar todo en una sola farmacia o por separado.</span></div>
-          <div class="feat"><span class="dot d-mediall"></span><span><b>Farmacias cercanas</b> con aviso de cuáles tienen tu receta completa (GPS + PostGIS).</span></div>
-          <div class="feat"><span class="dot d-mediall"></span><span><b>Asistente de malestares</b> — guía segura de venta libre que siempre recuerda acudir al médico.</span></div>
-          <div class="feat"><span class="dot d-mediall"></span><span><b>Alarmas de medicación</b> que suenan incluso en modo silencio.</span></div>
-          <div class="feat"><span class="dot d-mediall"></span><span><b>Recolección automática de catálogos públicos</b> desde 3 plataformas de e-commerce distintas (VTEX, Salesforce CC, DNN), corriendo sola en la nube cada día.</span></div>
+          <div class="feat"><i class="i-mediall"></i><span><b>Escaneo de recetas</b> con reconocimiento de texto 100 % en el teléfono.</span></div>
+          <div class="feat"><i class="i-mediall"></i><span><b>"Mi receta"</b>: calcula si conviene comprar todo en una farmacia o por separado.</span></div>
+          <div class="feat"><i class="i-mediall"></i><span><b>Farmacias cercanas</b> con aviso de cuáles tienen tu receta completa.</span></div>
+          <div class="feat"><i class="i-mediall"></i><span><b>Asistente de malestares</b> y alarmas de medicación que suenan sobre el modo silencio.</span></div>
         </div>
-        <div class="gallery">
-          <img src="assets/mediall/1.jpg" alt="Captura de Mediall" onerror="this.remove()">
-          <img src="assets/mediall/2.jpg" alt="Captura de Mediall" onerror="this.remove()">
-          <img src="assets/mediall/3.jpg" alt="Captura de Mediall" onerror="this.remove()">
-        </div>
-        <div class="tech">
-          <span>Flutter</span><span>Supabase · PostgreSQL</span><span>Cloudflare Workers</span>
-          <span>ML Kit OCR</span><span>PostGIS</span><span>AdMob</span><span>Actualización OTA propia</span>
-        </div>
-        <p class="status"><b>Estado:</b> en pruebas con usuarios reales; camino a Google Play.</p>
+        <div class="tech"><span>Flutter</span><span>Supabase</span><span>Cloudflare Workers</span><span>ML Kit</span><span>PostGIS</span></div>
+        <p class="state"><b>▸ estado:</b> pruebas con usuarios · camino a Google Play</p>
       </div>
-    </article>
+    </div>
 
-    <!-- ══════════ HUKAZEOS OS ══════════ -->
-    <article class="project">
-      <div class="banner b-huka">
-        <span class="tag">SaaS · Salud dental</span>
-        <h3>🦷 HuKazeos OS</h3>
-        <p>El sistema operativo del consultorio dental: pacientes, citas, inventario y una comunidad profesional.</p>
+    <!-- ═════ HUKAZEOS ═════ -->
+    <div class="proj rev rv">
+      <div class="media">
+        <div class="phones">
+          <div class="phone back"><div class="screen"><div class="notch"></div>
+            <div class="scr">
+              <div class="h-head"><b>Comunidad</b><span>Casos clínicos entre colegas</span></div>
+              <div style="flex:1;background:#f8fafc">
+                <div class="h-feed"><b>Dra. P. Andrade</b><span>Rehabilitación estética 12–22 con carillas. Antes/después 👇</span><div class="rx">👍 24 · 💬 8 comentarios</div></div>
+                <div class="h-feed"><b>Dr. J. Salas</b><span>¿Segunda opinión? Reabsorción radicular en pieza 46…</span><div class="rx">👍 11 · 💬 15 comentarios</div></div>
+                <div class="h-feed"><b>Dra. M. Torres</b><span>Refiero paciente de ortodoncia en Cuenca, ¿alguien disponible?</span><div class="rx">👍 6 · 💬 4 comentarios</div></div>
+              </div>
+            </div>
+          </div></div>
+          <div class="phone front"><div class="screen"><div class="notch"></div>
+            <div class="scr">
+              <div class="h-head"><b>🦷 HuKazeos OS</b><span>Clínica Sonría · lunes 14 de julio</span></div>
+              <div style="flex:1;background:#f8fafc">
+                <div class="h-kpis">
+                  <div class="h-kpi"><b>9</b><span>citas hoy</span></div>
+                  <div class="h-kpi"><b>2</b><span>por confirmar</span></div>
+                  <div class="h-kpi"><b>5</b><span>insumos por vencer</span></div>
+                </div>
+                <div class="h-alert">⚠ María G. — alérgica a la penicilina</div>
+                <div class="h-sec">Agenda de hoy</div>
+                <div class="h-cita"><div><b>Carlos Vera</b><span>Endodoncia · pieza 26</span></div><div class="hr">09:00</div></div>
+                <div class="h-cita"><div><b>María G.</b><span>Profilaxis + odontograma</span></div><div class="hr">10:30</div></div>
+                <div class="h-cita"><div><b>Luis Paz</b><span>Control post-extracción</span></div><div class="hr">11:15</div></div>
+                <div class="h-cita"><div><b>Ana Ríos</b><span>Blanqueamiento</span></div><div class="hr">12:00</div></div>
+              </div>
+            </div>
+          </div></div>
+        </div>
       </div>
-      <div class="body">
-        <p class="desc">Plataforma multi-clínica que centraliza la gestión clínica y administrativa del
-          odontólogo, con los datos respaldados y aislados en la nube por clínica (Row Level Security).
-          Su diferenciador: una <b>mini red social profesional integrada</b> donde los odontólogos comparten
-          casos, se dan segundas opiniones y se refieren pacientes.</p>
+      <div class="info">
+        <span class="ptag t-huka">SaaS · Salud dental</span>
+        <h3>HuKazeos OS — el sistema operativo del consultorio dental</h3>
+        <p class="d">Plataforma multi-clínica con los datos respaldados y aislados en la nube.
+          Su diferenciador: una <b>comunidad profesional integrada</b> donde los odontólogos comparten
+          casos, piden segundas opiniones y se refieren pacientes.</p>
         <div class="feats">
-          <div class="feat"><span class="dot d-huka"></span><span><b>Historia clínica + odontograma</b> interactivo por superficies dentales.</span></div>
-          <div class="feat"><span class="dot d-huka"></span><span><b>Agenda de citas</b> con recordatorios automáticos por WhatsApp (reduce el ausentismo, el dolor #1 del sector).</span></div>
-          <div class="feat"><span class="dot d-huka"></span><span><b>Inventario con OCR</b> — foto a la factura y se carga solo, con alertas de caducidad.</span></div>
-          <div class="feat"><span class="dot d-huka"></span><span><b>Comunidad profesional</b> — feed de casos clínicos con reacciones y comentarios entre colegas.</span></div>
-          <div class="feat"><span class="dot d-huka"></span><span><b>Esterilización y mantenimiento</b> de equipos con registros de control.</span></div>
-          <div class="feat"><span class="dot d-huka"></span><span><b>Panel web de administración</b> con planes, estadísticas y soporte por chat en vivo.</span></div>
+          <div class="feat"><i class="i-huka"></i><span><b>Historia clínica + odontograma</b> interactivo por superficies dentales.</span></div>
+          <div class="feat"><i class="i-huka"></i><span><b>Citas con recordatorios por WhatsApp</b> — ataca el ausentismo, el dolor #1 del sector.</span></div>
+          <div class="feat"><i class="i-huka"></i><span><b>Inventario con OCR</b>: foto a la factura y se carga solo, con alertas de caducidad.</span></div>
+          <div class="feat"><i class="i-huka"></i><span><b>Panel web de administración</b> con planes, métricas y soporte por chat.</span></div>
         </div>
-        <div class="gallery">
-          <img src="assets/hukazeos/1.jpg" alt="Captura de HuKazeos OS" onerror="this.remove()">
-          <img src="assets/hukazeos/2.jpg" alt="Captura de HuKazeos OS" onerror="this.remove()">
-          <img src="assets/hukazeos/3.jpg" alt="Captura de HuKazeos OS" onerror="this.remove()">
-        </div>
-        <div class="tech">
-          <span>Flutter</span><span>Supabase · RLS multi-tenant</span><span>Cloudflare Workers · R2 · Pages</span>
-          <span>WhatsApp Cloud API</span><span>OCR</span><span>IA (dictado clínico)</span>
-        </div>
-        <p class="status"><b>Estado:</b> en desarrollo activo; arquitectura y módulos core funcionando.</p>
+        <div class="tech"><span>Flutter</span><span>Supabase · RLS multi-tenant</span><span>Cloudflare Workers · R2</span><span>WhatsApp Cloud API</span><span>IA (dictado clínico)</span></div>
+        <p class="state"><b>▸ estado:</b> desarrollo activo · módulos core funcionando</p>
       </div>
-    </article>
+    </div>
 
-    <!-- ══════════ ROBUZ ══════════ -->
-    <article class="project">
-      <div class="banner b-robuz">
-        <span class="tag">Robótica · IoT · Visión artificial</span>
-        <h3>🤖 Robuz</h3>
-        <p>Robot vehículo autónomo con visión en tiempo real, brazo robótico y comandos de voz.</p>
+    <!-- ═════ ROBUZ ═════ -->
+    <div class="proj rv">
+      <div class="media">
+        <div class="robuz-media">
+          <img src="assets/robuz/1.jpg" alt="Robuz — robot autónomo" onerror="this.outerHTML='<div class=slot>📷 FOTO DE ROBUZ<br>assets/robuz/1.jpg</div>'">
+          <img src="assets/robuz/2.jpg" alt="Robuz — brazo robótico" onerror="this.outerHTML='<div class=slot>📷 FOTO DEL BRAZO<br>assets/robuz/2.jpg</div>'">
+          <video class="wide" controls preload="metadata" src="assets/robuz/video.mp4" onerror="this.outerHTML='<div class=&quot;slot wide&quot;>🎬 VIDEO DE ROBUZ EN ACCIÓN<br>assets/robuz/video.mp4</div>'"></video>
+        </div>
+        <div class="specs">
+          <div class="r"><span class="k">compute</span><span class="v">Raspberry Pi 5 + ESP32</span></div>
+          <div class="r"><span class="k">percepción</span><span class="v">cámara · detección en tiempo real</span></div>
+          <div class="r"><span class="k">localización</span><span class="v">encoders + GPS + láser</span></div>
+          <div class="r"><span class="k">actuadores</span><span class="v">tracción · brazo robótico</span></div>
+          <div class="r"><span class="k">interfaz</span><span class="v">voz · control remoto</span></div>
+          <div class="r"><span class="k">roadmap</span><span class="v soon">LiDAR · carga automática</span></div>
+        </div>
       </div>
-      <div class="body">
-        <p class="desc">Mi proyecto de hardware: un robot construido desde cero sobre una
-          <b>Raspberry Pi 5</b> (cerebro de visión e IA) y un <b>ESP32</b> (control de motores y sensores en
-          tiempo real). Ve, entiende y actúa: detecta objetos con la cámara, navega solo y los manipula
-          con su brazo robótico.</p>
+      <div class="info">
+        <span class="ptag t-robuz">Robótica · Embebidos · Visión</span>
+        <h3>Robuz — robot autónomo con visión artificial</h3>
+        <p class="d">Mi laboratorio rodante, construido desde cero: una <b>Raspberry Pi 5</b> corre la
+          visión y la IA mientras un <b>ESP32</b> controla motores y sensores en tiempo real.
+          Ve, sabe dónde está, navega solo y manipula objetos con su brazo.</p>
         <div class="feats">
-          <div class="feat"><span class="dot d-robuz"></span><span><b>Detección de objetos en tiempo real</b> con la cámara a bordo (visión artificial).</span></div>
-          <div class="feat"><span class="dot d-robuz"></span><span><b>Sabe exactamente dónde está</b>: fusiona motores con encoders, GPS y sensores láser para localizarse.</span></div>
-          <div class="feat"><span class="dot d-robuz"></span><span><b>Movimiento autónomo</b> y control remoto — decide su ruta o obedece al operador.</span></div>
-          <div class="feat"><span class="dot d-robuz"></span><span><b>Brazo robótico</b> para recoger y manipular objetos.</span></div>
-          <div class="feat"><span class="dot d-robuz"></span><span><b>Comandos de voz</b> — le hablas y ejecuta.</span></div>
-          <div class="feat"><span class="dot d-robuz"></span><span><b>En crecimiento</b>: próximamente LiDAR para mapeo y una estación de carga automática (vuelve solo a cargarse).</span></div>
+          <div class="feat"><i class="i-robuz"></i><span><b>Detección de objetos en tiempo real</b> con modelos de visión desplegados a bordo.</span></div>
+          <div class="feat"><i class="i-robuz"></i><span><b>Odometría fusionada</b>: encoders + GPS + láser = sabe exactamente dónde está.</span></div>
+          <div class="feat"><i class="i-robuz"></i><span><b>Movimiento autónomo</b> o control del operador, y <b>comandos de voz</b>.</span></div>
+          <div class="feat"><i class="i-robuz"></i><span><b>En evolución</b>: LiDAR para mapeo y regreso solo a su estación de carga.</span></div>
         </div>
-        <div class="gallery">
-          <img src="assets/robuz/1.jpg" alt="Robuz — robot autónomo" onerror="this.remove()">
-          <img src="assets/robuz/2.jpg" alt="Robuz — brazo robótico" onerror="this.remove()">
-          <img src="assets/robuz/3.jpg" alt="Robuz — electrónica" onerror="this.remove()">
-          <img src="assets/robuz/4.jpg" alt="Robuz en acción" onerror="this.remove()">
-        </div>
-        <div class="tech">
-          <span>Raspberry Pi 5</span><span>ESP32</span><span>Python · C++</span><span>Visión artificial</span>
-          <span>Encoders + GPS + láser</span><span>Reconocimiento de voz</span><span>Próx.: LiDAR</span>
-        </div>
-        <p class="status"><b>Estado:</b> funcional y en evolución constante.</p>
+        <div class="tech"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python · C++</span><span>OpenCV</span><span>Modelos de visión propios</span></div>
+        <p class="state"><b>▸ estado:</b> funcional · creciendo módulo a módulo</p>
       </div>
-    </article>
+    </div>
 
-    <!-- ══════════ EDUCACIÓN ══════════ -->
-    <article class="project">
-      <div class="banner b-edu">
-        <span class="tag">Educación · IA</span>
-        <h3>📚 Asistente docente con IA <span style="font-size:14px;opacity:.85">(en diseño)</span></h3>
-        <p>Guía a los profesores con las notas de sus alumnos y genera exámenes únicos que reducen la copia.</p>
+    <!-- ═════ EDU ═════ -->
+    <div class="proj rev rv">
+      <div class="media">
+        <div class="phones">
+          <div class="phone front" style="transform:rotate(-2deg)"><div class="screen"><div class="notch"></div>
+            <div class="scr">
+              <div class="e-head"><b>📚 Panel del docente</b></div>
+              <div style="flex:1;background:#faf5ff">
+                <div class="e-card"><b>Matemáticas · 10.º B</b><span>Promedio del curso: 7.8/10 · 28 estudiantes</span>
+                  <div class="e-bar"><i style="width:78%"></i></div></div>
+                <div class="e-card"><b>⚠ Alerta temprana</b><span>3 estudiantes bajaron ≥2 puntos este parcial</span>
+                  <div class="e-bar"><i style="width:31%;background:#f43f5e"></i></div></div>
+                <div class="e-ia"><b>🤖 Examen generado por IA</b>Variante única por estudiante · mismo temario y dificultad · 28/28 variantes listas</div>
+                <div class="e-card"><b>Exportar reportes</b><span>Estudiante · padres · dirección académica</span></div>
+              </div>
+            </div>
+          </div></div>
+        </div>
       </div>
-      <div class="body">
-        <p class="desc">Una herramienta para devolverle tiempo al profesor: centraliza y analiza las
-          calificaciones para detectar a tiempo a los estudiantes que se están quedando atrás, y usa
-          <b>IA para generar exámenes guiados</b> — variantes equivalentes de una misma evaluación por
-          estudiante, de modo que copiar deje de tener sentido sin volverse injusto.</p>
+      <div class="info">
+        <span class="ptag t-edu">Educación · IA</span>
+        <h3>Asistente docente con IA</h3>
+        <p class="d">Devuelve tiempo al profesor: centraliza y analiza las calificaciones para detectar
+          a tiempo a los estudiantes rezagados, y genera <b>exámenes únicos por estudiante</b> con IA
+          — mismo temario y dificultad, preguntas distintas — para que copiar deje de tener sentido.</p>
         <div class="feats">
-          <div class="feat"><span class="dot d-edu"></span><span><b>Seguimiento de notas</b> con alertas tempranas de bajo rendimiento.</span></div>
-          <div class="feat"><span class="dot d-edu"></span><span><b>Exámenes generados por IA</b> — mismo temario y dificultad, preguntas distintas por alumno.</span></div>
-          <div class="feat"><span class="dot d-edu"></span><span><b>Reportes claros</b> para el docente, el estudiante y los padres.</span></div>
+          <div class="feat"><i class="i-edu"></i><span><b>Seguimiento de notas</b> con alertas tempranas de bajo rendimiento.</span></div>
+          <div class="feat"><i class="i-edu"></i><span><b>Generación guiada de exámenes</b>: variantes equivalentes y justas.</span></div>
+          <div class="feat"><i class="i-edu"></i><span><b>Reportes claros</b> para docente, estudiante y padres.</span></div>
         </div>
-        <div class="tech">
-          <span>IA generativa</span><span>Flutter / Web</span><span>Análisis de datos</span>
-        </div>
-        <p class="status"><b>Estado:</b> etapa de diseño y validación con docentes.</p>
+        <div class="tech"><span>IA generativa</span><span>Flutter / Web</span><span>Análisis de datos</span></div>
+        <p class="state"><b>▸ estado:</b> diseño y validación con docentes</p>
       </div>
-    </article>
+    </div>
+  </div>
+</section>
+
+<section id="stack" style="padding-top:20px">
+  <div class="wrap">
+    <div class="kick">Stack</div>
+    <h2>Con qué construyo</h2>
+    <div class="stack">
+      <div class="box rv"><h4><span class="ic">🔌</span> Embebidos y hardware</h4>
+        <div class="tech"><span>Raspberry Pi</span><span>ESP32</span><span>C/C++</span><span>Python</span><span>UART · I2C · SPI</span><span>Motores · encoders</span><span>GPS · láser</span></div></div>
+      <div class="box rv"><h4><span class="ic">🧠</span> IA y visión artificial</h4>
+        <div class="tech"><span>Entrenamiento de modelos de visión</span><span>Despliegue en el borde (edge)</span><span>OpenCV</span><span>OCR (ML Kit)</span><span>IA generativa</span></div></div>
+      <div class="box rv"><h4><span class="ic">📱</span> Aplicaciones</h4>
+        <div class="tech"><span>Flutter · Dart</span><span>Material 3</span><span>Play Billing</span><span>AdMob</span><span>Notificaciones</span></div></div>
+      <div class="box rv"><h4><span class="ic">☁️</span> Backend y nube</h4>
+        <div class="tech"><span>Supabase · PostgreSQL · RLS</span><span>PostGIS</span><span>Cloudflare Workers · R2 · Pages</span><span>Cron / pipelines de datos</span><span>WhatsApp Cloud API</span></div></div>
+    </div>
   </div>
 </section>
 
 <section class="contact" id="sobre-mi">
   <div class="wrap">
-    <div class="kicker">Sobre mí</div>
-    <h2>Lo que me mueve</h2>
-    <p class="sub">Me gusta llevar una idea desde cero hasta las manos del usuario: investigar el problema,
-      diseñar la arquitectura, construir el producto completo y verlo funcionar en el mundo real.</p>
-    <div class="about-grid">
-      <div class="about-card"><div class="ico">⚙️</div><h4>Automatización</h4>
-        <p>Sistemas que trabajan solos: recolección diaria de datos en la nube, pipelines de información, despliegues y actualizaciones automáticas.</p></div>
-      <div class="about-card"><div class="ico">📡</div><h4>IoT y hardware</h4>
-        <p>Raspberry Pi, ESP32, sensores, motores y todo lo que conecte el software con el mundo físico.</p></div>
-      <div class="about-card"><div class="ico">🧠</div><h4>Inteligencia artificial</h4>
-        <p>IA aplicada con propósito: <b>entrenamiento y despliegue de modelos de visión artificial</b>, OCR de recetas y facturas, generación de exámenes y asistentes que orientan sin reemplazar al profesional.</p></div>
-      <div class="about-card"><div class="ico">👁️</div><h4>Visión artificial</h4>
-        <p>Entreno y despliego modelos propios de detección de objetos en tiempo real (del dataset al dispositivo), reconocimiento de texto en imágenes y percepción para robótica.</p></div>
-    </div>
-    <div class="cta" style="margin-top:36px">
-      <a class="btn btn-primary" href="mailto:kahuxixa@gmail.com">✉️ Escríbeme</a>
-      <a class="btn btn-ghost" href="https://github.com/kahuxixa-svg" target="_blank" rel="noopener">GitHub</a>
+    <div class="kick">Sobre mí</div>
+    <h2>Me gusta llevar las ideas hasta el mundo real</h2>
+    <p class="sub">Investigo el problema, diseño la arquitectura, construyo el producto completo y lo
+      pongo en manos de usuarios reales. Automatización, IoT, inteligencia artificial y visión
+      artificial — con el entrenamiento y despliegue de modelos incluido, no solo la teoría.</p>
+    <div class="cta" style="margin-top:30px">
+      <a class="btn btn-p" href="mailto:kahuxixa@gmail.com">✉️ kahuxixa@gmail.com</a>
+      <a class="btn btn-g" href="https://github.com/kahuxixa-svg" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">HXAS · Hecho en Ecuador 🇪🇨 · © 2026</div>
+  <div class="wrap">HXAS © 2026 · hecho_en_ecuador = true 🇪🇨 · <a href="privacidad-mediall.html">privacidad · mediall</a></div>
 </footer>
 
+<script>
+// ---- Terminal con tipeo ----
+const LINES = [
+  ['p','hxas@lab:~$ '], ['t','whoami'],
+  ['o','desarrollador · embebidos + robótica + ia + apps'],
+  ['p','hxas@lab:~$ '], ['t','ls proyectos/'],
+  ['o','mediall/  hukazeos-os/  robuz/  asistente-docente/'],
+  ['p','hxas@lab:~$ '], ['t','./robuz --status'],
+  ['o','[ OK ] visión: detectando objetos @ tiempo real'],
+  ['o','[ OK ] odometría: encoders+gps+láser fusionados'],
+  ['o','[ .. ] lidar: próximamente'],
+  ['p','hxas@lab:~$ '],
+];
+const term = document.getElementById('term');
+let li = 0, ci = 0, buf = '';
+function esc(s){return s.replace(/</g,'&lt;')}
+function render(extra){ term.innerHTML = buf + (extra||'') + '<span class="cursor"></span>'; }
+function step(){
+  if (li >= LINES.length) { render(); return; }
+  const [kind, text] = LINES[li];
+  if (kind === 't') {
+    if (ci < text.length) { ci++; render(esc(text.slice(0,ci))); setTimeout(step, 34 + Math.random()*50); return; }
+    buf += esc(text) + '<br>'; li++; ci=0; setTimeout(step, 220); return;
+  }
+  buf += (kind==='p' ? '<span class="p">'+esc(text)+'</span>'
+                     : '<span class="o">'+esc(text)+'</span><br>');
+  li++; render(); setTimeout(step, kind==='p' ? 160 : 240);
+}
+step();
+
+// ---- Reveal on scroll ----
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}
+}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// ---- Contadores animados ----
+const io2 = new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return; io2.unobserve(e.target);
+  const el = e.target, n = +el.dataset.n, t0 = performance.now(), dur = 1300;
+  (function tick(t){ const p = Math.min((t-t0)/dur, 1), v = Math.round(n*(1-Math.pow(1-p,3)));
+    el.textContent = v.toLocaleString('es-EC'); if(p<1) requestAnimationFrame(tick); })(t0);
+}),{threshold:.5});
+document.querySelectorAll('[data-n]').forEach(el=>io2.observe(el));
+</script>
 </body>
 </html>
