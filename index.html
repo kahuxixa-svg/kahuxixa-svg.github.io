@@ -190,11 +190,16 @@
   .e-ia b{font-size:8.2px;display:block}
 
   /* robuz media */
-  .robuz-media{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .robuz-media .slot{position:relative;border:1.5px dashed var(--line2);border-radius:16px;background:rgba(148,180,255,.03);
-    min-height:150px;display:grid;place-items:center;text-align:center;padding:16px;color:var(--dim);font:600 11.5px var(--mono)}
-  .robuz-media img,.robuz-media video{width:100%;height:100%;min-height:150px;object-fit:cover;border-radius:16px;border:1px solid var(--line2);background:#000}
-  .robuz-media .wide{grid-column:1/-1}
+    min-height:220px;display:grid;place-items:center;text-align:center;padding:16px;color:var(--dim);font:600 11.5px var(--mono)}
+  /* Marco del video con borde degradado al estilo de la página (naranja Robuz) */
+  .video-frame{position:relative;border-radius:18px;padding:1.5px;
+    background:linear-gradient(135deg,var(--robuz2),rgba(148,180,255,.14) 45%,var(--robuz1));
+    box-shadow:0 26px 60px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.3),0 10px 40px rgba(234,88,12,.14)}
+  .video-frame::before{content:"● REC";position:absolute;top:11px;left:12px;z-index:2;
+    font:700 10px var(--mono);letter-spacing:1px;color:#fff;background:rgba(0,0,0,.45);
+    padding:3px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+  .video-frame video{display:block;width:100%;border-radius:16.5px;background:#05070c;aspect-ratio:16/9;object-fit:cover}
   .specs{margin-top:14px;border:1px solid var(--line2);border-radius:14px;background:#081019;padding:14px 16px;font:12px/2 var(--mono)}
   .specs .r{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(148,180,255,.08)}
   .specs .r:last-child{border-bottom:0}
@@ -385,9 +390,11 @@
     <div class="proj rv">
       <div class="media">
         <div class="robuz-media">
-          <img src="assets/robuz/1.jpg" alt="Robuz — robot autónomo" onerror="this.outerHTML='<div class=slot>📷 FOTO DE ROBUZ<br>assets/robuz/1.jpg</div>'">
-          <img src="assets/robuz/2.jpg" alt="Robuz — brazo robótico" onerror="this.outerHTML='<div class=slot>📷 FOTO DEL BRAZO<br>assets/robuz/2.jpg</div>'">
-          <video class="wide" controls preload="metadata" src="assets/robuz/video.mp4" onerror="this.outerHTML='<div class=&quot;slot wide&quot;>🎬 VIDEO DE ROBUZ EN ACCIÓN<br>assets/robuz/video.mp4</div>'"></video>
+          <div class="video-frame">
+            <video id="robuz-video" muted loop playsinline preload="metadata" poster="assets/robuz/poster.jpg"
+                   src="assets/robuz/video.mp4"
+                   onerror="this.closest('.video-frame').outerHTML='<div class=&quot;slot wide&quot;>🎬 VIDEO DE ROBUZ EN ACCIÓN<br>assets/robuz/video.mp4</div>'"></video>
+          </div>
         </div>
         <div class="specs">
           <div class="r"><span class="k">compute</span><span class="v">Raspberry Pi 5 + ESP32</span></div>
@@ -484,7 +491,7 @@
 </section>
 
 <footer>
-  <div class="wrap">HXAS © 2026 · hecho_en_ecuador = true 🇪🇨 · <a href="privacidad-mediall.html">privacidad · mediall</a></div>
+  <div class="wrap">HXAS © 2026</div>
 </footer>
 
 <script>
@@ -531,6 +538,16 @@ const io2 = new IntersectionObserver(es=>es.forEach(e=>{
     el.textContent = v.toLocaleString('es-EC'); if(p<1) requestAnimationFrame(tick); })(t0);
 }),{threshold:.5});
 document.querySelectorAll('[data-n]').forEach(el=>io2.observe(el));
+
+// ---- Video de Robuz: reproduce solo cuando entra en pantalla, pausa al salir ----
+const rv = document.getElementById('robuz-video');
+if (rv) {
+  const vio = new IntersectionObserver(es=>es.forEach(e=>{
+    if (e.isIntersecting) { rv.play().catch(()=>{}); }
+    else { rv.pause(); }
+  }),{threshold:.45});
+  vio.observe(rv);
+}
 </script>
 </body>
 </html>
